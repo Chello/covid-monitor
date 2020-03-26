@@ -5,11 +5,32 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <script src="js/main.js"></script>
-        <script src="COVID-19/dati-json/dpc-covid19-ita-andamento-nazionale.json"></script>
+        <script src="js/DOMlinks.js"></script>
     </head>
     <body>
         <h1>Covid Monitor by Chellazzo</h1>
         <div id='mainContainer'>
+            Ambito:
+            <select name="ambito" id="ambito">
+                <option selected value="nazionale">Nazionale</option>
+                <option value="province">Per provincia</option>
+                <option value="regione">Per regione</option>
+            </select>
+            Campo:
+            <select name="campo" id="campo"></select>
+            
+            <div hidden id='regioneChooser'>
+                Regione:
+                <select name="regione" id="regione"></select>
+            </div>
+
+            <div hidden id='provinciaChooser'>
+                Provincia:
+                <select name="provincia" id="provincia"></select>
+            </div>
+
+            <button id='update'>Aggiorna</button>
+            <br />
             <canvas  id="covidChart"></canvas>
         </div>
     </body>
