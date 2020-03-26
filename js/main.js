@@ -1,9 +1,13 @@
 var covidData = {
-    nazionale: 0,
-    province: 0,
-    regioni: 0
+    nazionale: [],
+    province: {},
+    regioni: {}
 }
 var days;
+const province = 10;
+const regioni = 21;
+
+var covidChart = {};
 
 
 $(document).ready(function() {
@@ -12,16 +16,33 @@ $(document).ready(function() {
 
 var getAllData = function() {
     var promises = [];
+
     promises.push($.getJSON('COVID-19/dati-json/dpc-covid19-ita-andamento-nazionale.json', function(data) {
         covidData.nazionale = data;
     }));
 
     promises.push($.getJSON('COVID-19/dati-json/dpc-covid19-ita-province.json', function(data) {
-        covidData.province = data;
+        data.forEach(element => {
+            curProvincia = element.denominazione_provincia.trim()
+
+            if (covidData.province[curProvincia] == undefined)
+                covidData.province[curProvincia] = Array();
+
+            covidData.province[curProvincia].push(element);
+        });
+        //covidData.province = data;
     }));
 
     promises.push($.getJSON('COVID-19/dati-json/dpc-covid19-ita-regioni.json', function(data) {
-        covidData.regioni = data;
+        data.forEach(element => {
+
+            curRegione = element.denominazione_regione.trim()
+
+            if (covidData.regioni[curRegione] == undefined)
+                covidData.regioni[curRegione] = Array();
+
+            covidData.regioni[curRegione].push(element);
+        });
     }));
 
     $.when.apply($, promises).then(function() {
@@ -30,14 +51,17 @@ var getAllData = function() {
             today = new Date(Date.parse(val.data));
             return (today.getDate() + '/' + (today.getMonth() +1));
         });
-        createChart(createPoints(covidData.nazionale, 'deceduti'), 'deceduti');
+        createChart(createPoints(covidData.nazionale, 'tamponi'), 'tamponi');
+        fillCampo(covidData.nazionale);
+        fillRegioni();
+        fillProvince();
     });
 
 }
 
 var createChart = function(points, field) {
     var ctx = $('#covidChart');
-    var covidChart = new Chart(ctx, {
+    covidChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: days,
@@ -75,6 +99,12 @@ var createChart = function(points, field) {
             }
         }
     });
+}
+
+var addChartData = function(data, label) {
+    covidChart.data.datasets.label = label;
+    covidChart.data.datasets.data = data;
+    covidChart.update();
 }
 
 var createPoints = function(topic, field) {
