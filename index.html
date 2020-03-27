@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Covid Monitor by Chello</title>
+        <title>Covid Monitor by Federico Rachelli</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -9,7 +9,11 @@
         <script src="js/customData.js"></script>
     </head>
     <body>
-        <h1>Covid Monitor by Chellazzo</h1>
+        <h1>Covid Monitor by Federico Rachelli</h1>
+        <h4>Come usare:</h4>
+        <p>Inserisci un ambito e il campo che si vuole inserire nel grafico. Per ambiti regionali o provinciali bisogna selezionare anche la regione/provincia da analizzare. <br/>
+        Se si vuole vedere l'incremento giorno per giorno del dato da analizzare bisogna premere su "Visualizza incremento" (corrisponde alla derivata prima del dato inserito in "campo") <br/>
+        Il pulsante "Aggiungi" aggiunge il dato al grafico. Per cancellare tutto ció che é stato inserito si deve premere su "pulisci grafico".</p>
         <div id='mainContainer'>
             Ambito:
             <select name="ambito" id="ambito">
@@ -32,7 +36,7 @@
 
             Visualizza incremento (delta)
             <input type="checkbox" name="increment" id="increment">
-            <button id='update'>Aggiorna</button>
+            <button id='update'>Aggiungi</button>
             <button id='clear'>Pulisci grafico</button>
             <br />
             <canvas  id="covidChart"></canvas>
