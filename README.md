@@ -16,3 +16,5 @@ Problemi:
 * ...find yours
 
 Il sito é accedibile da http://federicorachelli.it/covid-monitor/
+
+Piú che un progetto lo definirei un 'flusso di coscienza', frutto del lavoro di poche ore, per tirarmi via lo sfizio e la 'fame di dati strutturati'. 
