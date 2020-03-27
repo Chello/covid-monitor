@@ -26,6 +26,11 @@ $(document).on('click', '#update', function(sel) {
     }
 });
 
+$(document).on('click', '#clear', function() {
+    covidChart.data.datasets = [{}];
+    covidChart.update();
+})
+
 var fillCampo = function(arr) {
     //first, get all objects fields
     keys = Object.keys(arr[0]);

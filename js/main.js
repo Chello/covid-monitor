@@ -52,6 +52,7 @@ var getAllData = function() {
             return (today.getDate() + '/' + (today.getMonth() +1));
         });
         createChart(createPoints(covidData.nazionale, 'nuovi_attualmente_positivi'), 'nuovi_attualmente_positivi');
+        addCustomData();
         fillCampo(covidData.nazionale);
         fillRegioni();
         fillProvince();
