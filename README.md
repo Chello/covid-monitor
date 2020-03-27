@@ -15,3 +15,4 @@ Problemi:
 * Non é progettato per essere mobile.
 * ...find yours
 
+Il sito é accedibile da http://federicorachelli.it/covid-monitor/
