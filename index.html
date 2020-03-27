@@ -6,6 +6,7 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <script src="js/main.js"></script>
         <script src="js/DOMlinks.js"></script>
+        <script src="js/customData.js"></script>
     </head>
     <body>
         <h1>Covid Monitor by Chellazzo</h1>
@@ -29,6 +30,8 @@
                 <select name="provincia" id="provinciaSelect"></select>
             </div>
 
+            Visualizza incremento (delta)
+            <input type="checkbox" name="increment" id="increment">
             <button id='update'>Aggiorna</button>
             <br />
             <canvas  id="covidChart"></canvas>

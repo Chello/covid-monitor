@@ -1,30 +1,29 @@
 $(document).on('click', '#update', function(sel) {
-    if ($('#ambito').find(':selected').val() == 'nazionale')
-        createChart(
-            createPoints(
-                covidData[$('#ambito').find(':selected').val()], 
-                $('#campo').find(':selected').text()
-            ), 
-            $('#campo').find(':selected').text()
+    var ambitoChoosen = $('#ambito').find(':selected').val();
+    var campoChoosen = $('#campo').find(':selected').text();
+    var isIncrement = $('#increment').prop('checked');
+
+    if (ambitoChoosen == 'nazionale')
+        addChartData(
+            createPoints(covidData[ambitoChoosen], campoChoosen, isIncrement), 
+            campoChoosen + "_nazionale" + ((isIncrement) ? "_increment" : "")
         );
 
-    else if ($('#ambito').find(':selected').val() == 'regioni')
-        createChart(
-            createPoints(
-                covidData[$('#ambito').find(':selected').val()][$('#regioneSelect').find(':selected').val()], 
-                $('#campo').find(':selected').text()
-            ), 
-            $('#campo').find(':selected').text()
+    else if (ambitoChoosen == 'regioni') {
+        var regioneChoosen = $('#regioneSelect').find(':selected').val()
+        addChartData(
+            createPoints(covidData[ambitoChoosen][regioneChoosen], campoChoosen, isIncrement), 
+            campoChoosen + "_" + regioneChoosen + ((isIncrement) ? "_increment" : "")
         );
+    }
 
-    else if ($('#ambito').find(':selected').val() == 'province')
-        createChart(
-            createPoints(
-                covidData[$('#ambito').find(':selected').val()][$('#provinciaSelect').find(':selected').val()], 
-                $('#campo').find(':selected').text()
-            ), 
-            $('#campo').find(':selected').text()
+    else if (ambitoChoosen == 'province') {
+        var provinciaChoosen = $('#provinciaSelect').find(':selected').val();
+        addChartData(
+            createPoints(covidData[ambitoChoosen][provinciaChoosen], campoChoosen, isIncrement),
+            campoChoosen + "_" + provinciaChoosen + ((isIncrement) ? "_increment" : "")
         );
+    }
 });
 
 var fillCampo = function(arr) {

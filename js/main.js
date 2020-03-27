@@ -51,7 +51,7 @@ var getAllData = function() {
             today = new Date(Date.parse(val.data));
             return (today.getDate() + '/' + (today.getMonth() +1));
         });
-        createChart(createPoints(covidData.nazionale, 'tamponi'), 'tamponi');
+        createChart(createPoints(covidData.nazionale, 'nuovi_attualmente_positivi'), 'nuovi_attualmente_positivi');
         fillCampo(covidData.nazionale);
         fillRegioni();
         fillProvince();
@@ -65,27 +65,7 @@ var createChart = function(points, field) {
         type: 'line',
         data: {
             labels: days,
-            datasets: [{
-                label: field,
-                data: points,
-                // backgroundColor: [
-                //     'rgba(255, 99, 132, 0.2)',
-                //     'rgba(54, 162, 235, 0.2)',
-                //     'rgba(255, 206, 86, 0.2)',
-                //     'rgba(75, 192, 192, 0.2)',
-                //     'rgba(153, 102, 255, 0.2)',
-                //     'rgba(255, 159, 64, 0.2)'
-                // ],
-                // borderColor: [
-                //     'rgba(255, 99, 132, 1)',
-                //     'rgba(54, 162, 235, 1)',
-                //     'rgba(255, 206, 86, 1)',
-                //     'rgba(75, 192, 192, 1)',
-                //     'rgba(153, 102, 255, 1)',
-                //     'rgba(255, 159, 64, 1)'
-                // ],
-                borderWidth: 1
-            }]
+            datasets: [{}]
         },
         options: {
             responsive: true,
@@ -102,13 +82,22 @@ var createChart = function(points, field) {
 }
 
 var addChartData = function(data, label) {
-    covidChart.data.datasets.label = label;
-    covidChart.data.datasets.data = data;
-    covidChart.update();
-}
+    var dynamicColors = function() {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        return "rgb(" + r + "," + g + "," + b + ", 0.2)";
+    };
 
-var createPoints = function(topic, field) {
-    return $.map(topic, function(val) {
-        return val[this.field];
-    }.bind({field: field}));
+    var newDataset = {
+        'label': label,
+        'data': data,
+        borderWidth: 1,
+        backgroundColor: [
+            dynamicColors()
+        ]
+    };
+
+    covidChart.data.datasets.push(newDataset);
+    covidChart.update();
 }
